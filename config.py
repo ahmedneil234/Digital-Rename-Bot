@@ -33,44 +33,47 @@ import re, os, time
 id_pattern = re.compile(r'^.\d+$') 
 
 class Config(object):
-    # Telegram API configuration
-    API_ID = "26617321"      
-    API_HASH = "40daa567bfe70fb71d9727c4a93b6503"      
-    BOT_TOKEN = "8009631616:AAFUwODS5E8pbWkMzkG6XSZ2o346HllGFwA"
+    # digital_botz client config
+    API_ID = os.environ.get("API_ID", "26617321")
+    API_HASH = os.environ.get("API_HASH", "40daa567bfe70fb71d9727c4a93b6503")
+    BOT_TOKEN = os.environ.get("BOT_TOKEN", "8009631616:AAFUwODS5E8pbWkMzkG6XSZ2o346HllGFwA") 
 
-    # Premium account string session (optional)
-    STRING_SESSION = ""    # Optional - leave empty if not needed
+    # premium account string session required 😢 
+    STRING_SESSION = os.environ.get("STRING_SESSION", "")
     
-    # Database configuration 
-    DB_NAME = "Digital_Rename_Bot"    
-    DB_URL = "mongodb+srv://jojix54205:0GtCoMpOVHCjT9sx@mirror.ysg93.mongodb.net/?retryWrites=true&w=majority&appName=mirror"
+    # database config
+    DB_NAME = os.environ.get("DB_NAME","Digital_Rename_Bot")     
+    DB_URL = os.environ.get("DB_URL","mongodb+srv://jojix54205:0GtCoMpOVHCjT9sx@mirror.ysg93.mongodb.net/?retryWrites=true&w=majority&appName=mirror")
  
-    # Other configurations
-    RKN_PIC = "https://telegra.ph/file/b746aadfe59959eb76f59.jpg"    
-    ADMIN = ["5488475852"]    # Your Telegram ID
-    LOG_CHANNEL = "-1002506943014"    # Your log channel ID
+    # other configs
+    RKN_PIC = os.environ.get("RKN_PIC", "https://telegra.ph/file/b746aadfe59959eb76f59.jpg")
+    ADMIN = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMIN', '5488475852').split()]
+    LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1002506943014"))
 
-    # Upload limit
-    FREE_UPLOAD_LIMIT = 6442450944    # 6GB in bytes
+    # free upload limit 
+    FREE_UPLOAD_LIMIT = 6442450944 # calculation 6*1024*1024*1024=results
 
-    # Premium features
+    # premium mode feature ✅
     UPLOAD_LIMIT_MODE = True 
     PREMIUM_MODE = True 
     
-    # Force subscription
-    FORCE_SUB = "banglamovieseries"    # Your channel username without @
+    #force subs
+    try:
+        FORCE_SUB = int(os.environ.get("FORCE_SUB", "banglamovieseries")) 
+    except:
+        FORCE_SUB = os.environ.get("FORCE_SUB", "Digital_Botz")
         
-    # Web response configuration     
-    PORT = 8080
+    # wes response configuration     
+    PORT = int(os.environ.get("PORT", "8080"))
     BOT_UPTIME = time.time()
 
 class rkn(object):
     # part of text configuration
     START_TXT = """<b>Ｈ𝙰𝙸, {}👋
 
-𝚃ʜɪs 𝙸s 𝙰ɴ 𝙰ᴅᴠᴀᴄᴇᴅ 𝙰ɴᴅ 𝚈ᴇᴛ 𝙿ᴏᴡᴇʀ𝚏ᴜʟ 𝚁ᴇɴᴀᴍᴇ 𝙱ᴏᴛ
-𝚄sɪɴɢ 𝚃ʜɪs 𝙱ᴏᴛ 𝚈ᴏᴜ 𝙲ᴀɴ 𝚁ᴇɴᴀᴍᴇ & 𝙲ʜᴀɴɢᴇ 𝚃ʜᴜᴍ𝙱𝚗ᴀɪʟ 𝙾ғ 𝚈ᴏ𝚞𝚛 𝙵ɪʟᴇ 
-𝚈ᴏᴜ 𝙲ᴀɴ 𝙰ʟsᴏ 𝙲ᴏɴভᴇ𝚛𝚝 𝚅ɪᴅᴇ𝙾 𝚃ᴏ 𝙵ɪʟᴇ & 𝙵ɪʟᴇ 𝚃ᴏ 𝚅ɪᴅᴇ𝙾
+𝚃ʜɪs 𝙸s 𝙰ɴ 𝙰ᴅᴠᴀᴄᴇᴅ 𝙰ɴᴅ 𝚈ᴇᴛ 𝙿ᴏᴡᴇʀғᴜʟ 𝚁ᴇɴᴀᴍᴇ 𝙱ᴏᴛ
+𝚄sɪɴɢ 𝚃ʜɪs 𝙱ᴏᴛ 𝚈ᴏᴜ 𝙲ᴀɴ 𝚁ᴇɴᴀᴍᴇ & 𝙲ʜᴀɴɢᴇ 𝚃ʜᴜᴍʙɴᴀɪʟ 𝙾ғ 𝚈ᴏᴜʀ 𝙵ɪʟᴇ 
+𝚈ᴏᴜ 𝙲ᴀɴ 𝙰ʟsᴏ 𝙲ᴏɴᴠᴇʀᴛ 𝚅ɪᴅᴇᴏ 𝚃ᴏ 𝙵ɪʟᴇ & 𝙵ɪʟᴇ 𝚃ᴏ 𝚅ɪᴅᴇᴏ
 𝚃𝙷𝙸𝚂 𝙱𝙾𝚃 𝙰𝙻𝚂𝙾 𝚂𝚄𝙿𝙿𝙾𝚁𝚃𝚂 𝙲𝚄𝚂𝚃𝙾𝙼 𝚃𝙷𝚄𝙼𝙱𝙽𝙰𝙸𝙻 𝙰𝙽𝙳 𝙲𝚄𝚂𝚃𝙾𝙼 𝙲𝙰𝙿𝚃𝙸𝙾𝙽
 
 Tʜɪs Bᴏᴛ Wᴀs Cʀᴇᴀᴛᴇᴅ Bʏ : @Digital_Botz 💞</b>"""
@@ -120,11 +123,11 @@ Tʜɪs Bᴏᴛ Wᴀs Cʀᴇᴀᴛᴇᴅ Bʏ : @Digital_Botz 💞</b>"""
     """
     
     THUMBNAIL = """
-🌌 <b><u>Hᴏᴡ Tᴏ Sᴇᴛ Tʜᴜᴍ𝙱𝚗ɪʟᴇ</u></b>
+🌌 <b><u>Hᴏᴡ Tᴏ Sᴇᴛ Tʜᴜᴍʙɴɪʟᴇ</u></b>
 
-<b>•></b> Sᴇɴᴅ Aɴy Pʜᴏᴛᴏ Tᴏ Aᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟy Sᴇᴛ Tʜᴜᴍ𝙱𝚗ɪʟᴇ.
-<b>•></b> /del_thumb Uꜱᴇ Tʜɪꜱ Cᴏᴍᴍᴀɴᴅ Tᴏ Dᴇʟᴇᴛᴇ Yᴏᴜʀ Oʟᴅ Tʜᴜᴍ𝙱𝚗ɪʟᴇ.
-<b>•></b> /view_thumb Uꜱᴇ Tʜɪꜱ Cᴏᴍᴍᴀɴᴅ Tᴏ Vɪᴇᴡ Yᴏᴜʀ Cᴜʀʀᴇɴᴛ Tʜᴜᴍ𝙱𝚗ɪʟᴇ.
+<b>•></b> Sᴇɴᴅ Aɴy Pʜᴏᴛᴏ Tᴏ Aᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟy Sᴇᴛ Tʜᴜᴍʙɴɪʟᴇ.
+<b>•></b> /del_thumb Uꜱᴇ Tʜɪꜱ Cᴏᴍᴍᴀɴᴅ Tᴏ Dᴇʟᴇᴛᴇ Yᴏᴜʀ Oʟᴅ Tʜᴜᴍʙɴɪʟᴇ.
+<b>•></b> /view_thumb Uꜱᴇ Tʜɪꜱ Cᴏᴍᴍᴀɴᴅ Tᴏ Vɪᴇᴡ Yᴏᴜʀ Cᴜʀʀᴇɴᴛ Tʜᴜᴍʙɴɪʟᴇ.
 """
     CAPTION= """
 📑 <b><u>Hᴏᴡ Tᴏ Sᴇᴛ Cᴜꜱᴛᴏᴍ Cᴀᴩᴛɪᴏɴ</u></b>
